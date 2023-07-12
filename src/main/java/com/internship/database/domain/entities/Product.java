@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.lang.model.element.Name;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,5 +29,12 @@ public class Product {
     @JsonIgnore
     @ToString.Exclude
     private Customer customer;
+
+    @ManyToMany
+    @JoinTable(
+            name = "products_orders",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private List<Order> orders;
 
 }
